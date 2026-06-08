@@ -28,10 +28,11 @@ export const Route = createFileRoute("/api/chat")({
 
         const gateway = createLovableAiGatewayProvider(apiKey);
 
+        const modelMessages = await convertToModelMessages(messages);
         const result = streamText({
           model: gateway("google/gemini-3-flash-preview"),
           system: SYSTEM_PROMPT,
-          messages: convertToModelMessages(messages),
+          messages: modelMessages,
         });
 
         return result.toUIMessageStreamResponse();
