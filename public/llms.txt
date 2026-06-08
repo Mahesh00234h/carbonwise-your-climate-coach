@@ -1,0 +1,16 @@
+# CarbonWise
+
+> AI-powered personal carbon coach. Measure, simulate, and reduce your carbon footprint with personalized habits and gamified progress.
+
+## Pages
+- [Home](/): Landing page introducing CarbonWise.
+- [Onboarding](/onboarding): Build your sustainability profile.
+- [Dashboard](/dashboard): Carbon intelligence dashboard.
+- [AI Coach](/coach): Personal AI sustainability mentor.
+- [What-If Simulator](/simulator): Project the impact of lifestyle changes.
+- [Habits](/habits): Daily eco-action tracker.
+- [Challenges](/challenges): Guided multi-day missions.
+- [Community](/community): Leaderboards and collective milestones.
+- [Reports](/reports): Weekly and monthly briefings.
+- [Bill Scanner](/scan): AI receipt & bill analyzer.
+- [Learn](/learn): Climate education center.
