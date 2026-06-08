@@ -9,9 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AppSimulatorRouteImport } from './routes/_app.simulator'
+import { Route as AppScanRouteImport } from './routes/_app.scan'
+import { Route as AppReportsRouteImport } from './routes/_app.reports'
+import { Route as AppLearnRouteImport } from './routes/_app.learn'
+import { Route as AppHabitsRouteImport } from './routes/_app.habits'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppCommunityRouteImport } from './routes/_app.community'
+import { Route as AppCoachRouteImport } from './routes/_app.coach'
+import { Route as AppChallengesRouteImport } from './routes/_app.challenges'
 
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -22,35 +42,165 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppSimulatorRoute = AppSimulatorRouteImport.update({
+  id: '/simulator',
+  path: '/simulator',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppScanRoute = AppScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReportsRoute = AppReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppLearnRoute = AppLearnRouteImport.update({
+  id: '/learn',
+  path: '/learn',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHabitsRoute = AppHabitsRouteImport.update({
+  id: '/habits',
+  path: '/habits',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCommunityRoute = AppCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCoachRoute = AppCoachRouteImport.update({
+  id: '/coach',
+  path: '/coach',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppChallengesRoute = AppChallengesRouteImport.update({
+  id: '/challenges',
+  path: '/challenges',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/onboarding': typeof OnboardingRoute
+  '/challenges': typeof AppChallengesRoute
+  '/coach': typeof AppCoachRoute
+  '/community': typeof AppCommunityRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/habits': typeof AppHabitsRoute
+  '/learn': typeof AppLearnRoute
+  '/reports': typeof AppReportsRoute
+  '/scan': typeof AppScanRoute
+  '/simulator': typeof AppSimulatorRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/onboarding': typeof OnboardingRoute
+  '/challenges': typeof AppChallengesRoute
+  '/coach': typeof AppCoachRoute
+  '/community': typeof AppCommunityRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/habits': typeof AppHabitsRoute
+  '/learn': typeof AppLearnRoute
+  '/reports': typeof AppReportsRoute
+  '/scan': typeof AppScanRoute
+  '/simulator': typeof AppSimulatorRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/onboarding': typeof OnboardingRoute
+  '/_app/challenges': typeof AppChallengesRoute
+  '/_app/coach': typeof AppCoachRoute
+  '/_app/community': typeof AppCommunityRoute
+  '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/habits': typeof AppHabitsRoute
+  '/_app/learn': typeof AppLearnRoute
+  '/_app/reports': typeof AppReportsRoute
+  '/_app/scan': typeof AppScanRoute
+  '/_app/simulator': typeof AppSimulatorRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/chat'
+  fullPaths:
+    | '/'
+    | '/onboarding'
+    | '/challenges'
+    | '/coach'
+    | '/community'
+    | '/dashboard'
+    | '/habits'
+    | '/learn'
+    | '/reports'
+    | '/scan'
+    | '/simulator'
+    | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/chat'
-  id: '__root__' | '/' | '/api/chat'
+  to:
+    | '/'
+    | '/onboarding'
+    | '/challenges'
+    | '/coach'
+    | '/community'
+    | '/dashboard'
+    | '/habits'
+    | '/learn'
+    | '/reports'
+    | '/scan'
+    | '/simulator'
+    | '/api/chat'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/onboarding'
+    | '/_app/challenges'
+    | '/_app/coach'
+    | '/_app/community'
+    | '/_app/dashboard'
+    | '/_app/habits'
+    | '/_app/learn'
+    | '/_app/reports'
+    | '/_app/scan'
+    | '/_app/simulator'
+    | '/api/chat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  OnboardingRoute: typeof OnboardingRoute
   ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -65,13 +215,114 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/simulator': {
+      id: '/_app/simulator'
+      path: '/simulator'
+      fullPath: '/simulator'
+      preLoaderRoute: typeof AppSimulatorRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/scan': {
+      id: '/_app/scan'
+      path: '/scan'
+      fullPath: '/scan'
+      preLoaderRoute: typeof AppScanRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/reports': {
+      id: '/_app/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof AppReportsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/learn': {
+      id: '/_app/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof AppLearnRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/habits': {
+      id: '/_app/habits'
+      path: '/habits'
+      fullPath: '/habits'
+      preLoaderRoute: typeof AppHabitsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/community': {
+      id: '/_app/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof AppCommunityRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/coach': {
+      id: '/_app/coach'
+      path: '/coach'
+      fullPath: '/coach'
+      preLoaderRoute: typeof AppCoachRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/challenges': {
+      id: '/_app/challenges'
+      path: '/challenges'
+      fullPath: '/challenges'
+      preLoaderRoute: typeof AppChallengesRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppChallengesRoute: typeof AppChallengesRoute
+  AppCoachRoute: typeof AppCoachRoute
+  AppCommunityRoute: typeof AppCommunityRoute
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppHabitsRoute: typeof AppHabitsRoute
+  AppLearnRoute: typeof AppLearnRoute
+  AppReportsRoute: typeof AppReportsRoute
+  AppScanRoute: typeof AppScanRoute
+  AppSimulatorRoute: typeof AppSimulatorRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppChallengesRoute: AppChallengesRoute,
+  AppCoachRoute: AppCoachRoute,
+  AppCommunityRoute: AppCommunityRoute,
+  AppDashboardRoute: AppDashboardRoute,
+  AppHabitsRoute: AppHabitsRoute,
+  AppLearnRoute: AppLearnRoute,
+  AppReportsRoute: AppReportsRoute,
+  AppScanRoute: AppScanRoute,
+  AppSimulatorRoute: AppSimulatorRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  OnboardingRoute: OnboardingRoute,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
