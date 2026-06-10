@@ -14,7 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      habit_logs: {
+        Row: {
+          co2_saved_kg: number
+          created_at: string
+          habit_id: string
+          id: string
+          log_date: string
+          user_id: string
+          xp: number
+        }
+        Insert: {
+          co2_saved_kg?: number
+          created_at?: string
+          habit_id: string
+          id?: string
+          log_date?: string
+          user_id: string
+          xp?: number
+        }
+        Update: {
+          co2_saved_kg?: number
+          created_at?: string
+          habit_id?: string
+          id?: string
+          log_date?: string
+          user_id?: string
+          xp?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          country: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          onboarding: Json
+          updated_at: string
+          weekly_co2_goal_kg: number | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          country?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+          onboarding?: Json
+          updated_at?: string
+          weekly_co2_goal_kg?: number | null
+        }
+        Update: {
+          avatar_url?: string | null
+          country?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          onboarding?: Json
+          updated_at?: string
+          weekly_co2_goal_kg?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
