@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ScanLine, Sparkles, Upload } from "lucide-react";
-import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { Loader2, ScanLine, Sparkles, Upload } from "lucide-react";
+import { useRef, useState } from "react";
+import { toast } from "sonner";
 
 import { Card, PageHeader } from "@/components/AppShell";
+import { analyzeBill } from "@/lib/scan.functions";
 
 export const Route = createFileRoute("/_app/scan")({
   component: ScanPage,
@@ -38,10 +41,45 @@ const SAMPLES: Result[] = [
 
 function ScanPage() {
   const [results, setResults] = useState<Result[]>([]);
+  const [loading, setLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const runAnalyze = useServerFn(analyzeBill);
 
   const simulate = () => {
     const next = SAMPLES[results.length % SAMPLES.length];
     setResults((r) => [next, ...r]);
+  };
+
+  const onFile = async (file: File) => {
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("File too large (max 10MB).");
+      return;
+    }
+    setLoading(true);
+    try {
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(r.result as string);
+        r.onerror = () => reject(r.error);
+        r.readAsDataURL(file);
+      });
+      const out = await runAnalyze({ data: { dataUrl, mimeType: file.type || "image/jpeg" } });
+      setResults((r) => [
+        {
+          type: out.type,
+          vendor: out.vendor,
+          estimate: `${out.estimateKg.toFixed(1)} kg CO₂`,
+          insight: out.insight,
+        },
+        ...r,
+      ]);
+      toast.success("Bill analyzed");
+    } catch (e) {
+      console.error(e);
+      toast.error("Could not analyze that file. Try a clearer image.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,16 +93,37 @@ function ScanPage() {
       <Card className="border-dashed mb-6">
         <div className="text-center py-10">
           <div className="size-14 mx-auto rounded-2xl bg-primary/10 text-primary grid place-items-center mb-4">
-            <Upload className="size-6" />
+            {loading ? <Loader2 className="size-6 animate-spin" /> : <Upload className="size-6" />}
           </div>
-          <p className="font-semibold mb-1">Drop a file or click to upload</p>
+          <p className="font-semibold mb-1">{loading ? "Analyzing with AI…" : "Upload a bill or receipt"}</p>
           <p className="text-xs text-muted-foreground mb-6">PDF, JPG, or PNG · up to 10MB</p>
-          <button
-            onClick={simulate}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:glow-primary transition-all"
-          >
-            <ScanLine className="size-4" /> Try a demo scan
-          </button>
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/*,application/pdf"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) onFile(f);
+              e.target.value = "";
+            }}
+          />
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <button
+              disabled={loading}
+              onClick={() => inputRef.current?.click()}
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:glow-primary transition-all disabled:opacity-50"
+            >
+              <Upload className="size-4" /> Upload file
+            </button>
+            <button
+              disabled={loading}
+              onClick={simulate}
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl border border-border text-sm font-semibold hover:bg-muted/40 transition-all disabled:opacity-50"
+            >
+              <ScanLine className="size-4" /> Try a demo scan
+            </button>
+          </div>
         </div>
       </Card>
 
