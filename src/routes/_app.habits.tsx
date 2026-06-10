@@ -1,27 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, Flame } from "lucide-react";
-import { useState } from "react";
 
 import { Card, PageHeader } from "@/components/AppShell";
 import { HABITS, type HabitId } from "@/lib/app-data";
+import { useTodayHabitLogs, useToggleHabit } from "@/lib/use-profile";
 
 export const Route = createFileRoute("/_app/habits")({
   component: HabitsPage,
 });
 
 function HabitsPage() {
-  const [logged, setLogged] = useState<Set<HabitId>>(new Set(["transit", "meatless"]));
+  const { data: logs = [], isLoading } = useTodayHabitLogs();
+  const toggleMutation = useToggleHabit();
+  const loggedSet = new Set(logs.map((l) => l.habit_id as HabitId));
 
   const toggle = (id: HabitId) => {
-    setLogged((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
+    const h = HABITS.find((x) => x.id === id);
+    if (!h) return;
+    toggleMutation.mutate({
+      habit_id: id,
+      xp: h.xp,
+      co2_saved_kg: h.co2,
+      logged: loggedSet.has(id),
     });
   };
 
-  const xp = HABITS.filter((h) => logged.has(h.id)).reduce((a, b) => a + b.xp, 0);
-  const co2 = HABITS.filter((h) => logged.has(h.id)).reduce((a, b) => a + b.co2, 0);
+  const xp = logs.reduce((a, b) => a + b.xp, 0);
+  const co2 = logs.reduce((a, b) => a + Number(b.co2_saved_kg), 0);
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -50,16 +55,17 @@ function HabitsPage() {
 
       <div className="grid sm:grid-cols-2 gap-3">
         {HABITS.map((h) => {
-          const done = logged.has(h.id);
+          const done = loggedSet.has(h.id);
           return (
             <button
               key={h.id}
               onClick={() => toggle(h.id)}
+              disabled={isLoading || toggleMutation.isPending}
               className={`flex items-center gap-4 p-4 rounded-2xl border text-left transition-all ${
                 done
                   ? "border-primary/40 bg-primary/5"
                   : "border-border bg-surface hover:border-primary/20"
-              }`}
+              } disabled:opacity-60`}
             >
               <span className="size-12 rounded-xl bg-background border border-border grid place-items-center text-2xl">
                 {h.icon}
