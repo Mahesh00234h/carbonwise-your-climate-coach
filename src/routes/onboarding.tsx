@@ -1,6 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/onboarding")({
   head: () => ({
@@ -63,6 +65,14 @@ function Onboarding() {
   const navigate = useNavigate();
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) navigate({ to: "/auth" });
+    });
+  }, [navigate]);
 
   const step = STEPS[stepIndex];
   const pct = ((stepIndex + 1) / STEPS.length) * 100;
@@ -71,16 +81,30 @@ function Onboarding() {
     setAnswers((a) => ({ ...a, [step.key]: option }));
   };
 
-  const next = () => {
+  const next = async () => {
     if (stepIndex < STEPS.length - 1) {
       setStepIndex((i) => i + 1);
-    } else {
-      try {
-        localStorage.setItem("cw_profile", JSON.stringify(answers));
-      } catch {
-        /* ignore */
+      return;
+    }
+    setSaving(true);
+    setError(null);
+    try {
+      const { data: sess } = await supabase.auth.getSession();
+      const uid = sess.session?.user.id;
+      if (!uid) {
+        navigate({ to: "/auth" });
+        return;
       }
+      const { error } = await supabase
+        .from("profiles")
+        .update({ onboarding: answers })
+        .eq("id", uid);
+      if (error) throw error;
       navigate({ to: "/dashboard" });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Could not save profile");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -143,13 +167,16 @@ function Onboarding() {
             </button>
             <button
               onClick={next}
-              disabled={!answers[step.key]}
+              disabled={!answers[step.key] || saving}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold disabled:opacity-40 hover:glow-primary transition-all"
             >
-              {stepIndex === STEPS.length - 1 ? "Enter dashboard" : "Continue"}
+              {saving ? "Saving…" : stepIndex === STEPS.length - 1 ? "Enter dashboard" : "Continue"}
               <ArrowRight className="size-4" />
             </button>
           </div>
+          {error ? (
+            <p className="text-sm text-destructive mt-4">{error}</p>
+          ) : null}
         </div>
       </div>
     </div>

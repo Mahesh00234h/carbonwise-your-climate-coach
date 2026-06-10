@@ -9,9 +9,14 @@ import {
   FileBarChart2,
   BookOpen,
   ScanLine,
+  Settings,
+  LogOut,
   type LucideIcon,
 } from "lucide-react";
 import type { ReactNode } from "react";
+
+import { supabase } from "@/integrations/supabase/client";
+import { useProfile, useSession } from "@/lib/use-profile";
 
 type NavItem = { to: string; label: string; icon: LucideIcon };
 
@@ -25,10 +30,20 @@ const NAV: NavItem[] = [
   { to: "/reports", label: "Reports", icon: FileBarChart2 },
   { to: "/scan", label: "Bill Scanner", icon: ScanLine },
   { to: "/learn", label: "Learn", icon: BookOpen },
+  { to: "/settings", label: "Settings", icon: Settings },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { email } = useSession();
+  const { data: profile } = useProfile();
+  const name = profile?.display_name ?? email ?? "Member";
+  const initial = (profile?.display_name ?? email ?? "?").charAt(0).toUpperCase();
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    window.location.href = "/auth";
+  };
 
   return (
     <div className="min-h-screen flex bg-background text-foreground">
@@ -66,6 +81,26 @@ export function AppShell({ children }: { children: ReactNode }) {
           <p className="text-xs text-muted-foreground">
             <span className="text-foreground font-semibold">9,420</span> / 14,000 XP
           </p>
+        </div>
+        <div className="mt-3 p-3 rounded-2xl border border-border bg-surface flex items-center gap-3">
+          <div className="size-9 rounded-full bg-primary text-primary-foreground grid place-items-center font-bold">
+            {profile?.avatar_url ? (
+              <img src={profile.avatar_url} alt="" className="size-9 rounded-full object-cover" />
+            ) : (
+              initial
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold truncate">{name}</p>
+            <p className="text-[10px] text-muted-foreground truncate font-mono">{email}</p>
+          </div>
+          <button
+            onClick={signOut}
+            aria-label="Sign out"
+            className="size-8 grid place-items-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5"
+          >
+            <LogOut className="size-4" />
+          </button>
         </div>
       </aside>
 

@@ -11,10 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AppSimulatorRouteImport } from './routes/_app.simulator'
+import { Route as AppSettingsRouteImport } from './routes/_app.settings'
 import { Route as AppScanRouteImport } from './routes/_app.scan'
 import { Route as AppReportsRouteImport } from './routes/_app.reports'
 import { Route as AppLearnRouteImport } from './routes/_app.learn'
@@ -34,6 +36,11 @@ const OnboardingRoute = OnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
@@ -51,6 +58,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
 const AppSimulatorRoute = AppSimulatorRouteImport.update({
   id: '/simulator',
   path: '/simulator',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AppRoute,
 } as any)
 const AppScanRoute = AppScanRouteImport.update({
@@ -96,6 +108,7 @@ const AppChallengesRoute = AppChallengesRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/onboarding': typeof OnboardingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/challenges': typeof AppChallengesRoute
@@ -106,11 +119,13 @@ export interface FileRoutesByFullPath {
   '/learn': typeof AppLearnRoute
   '/reports': typeof AppReportsRoute
   '/scan': typeof AppScanRoute
+  '/settings': typeof AppSettingsRoute
   '/simulator': typeof AppSimulatorRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/onboarding': typeof OnboardingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/challenges': typeof AppChallengesRoute
@@ -121,6 +136,7 @@ export interface FileRoutesByTo {
   '/learn': typeof AppLearnRoute
   '/reports': typeof AppReportsRoute
   '/scan': typeof AppScanRoute
+  '/settings': typeof AppSettingsRoute
   '/simulator': typeof AppSimulatorRoute
   '/api/chat': typeof ApiChatRoute
 }
@@ -128,6 +144,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
   '/onboarding': typeof OnboardingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_app/challenges': typeof AppChallengesRoute
@@ -138,6 +155,7 @@ export interface FileRoutesById {
   '/_app/learn': typeof AppLearnRoute
   '/_app/reports': typeof AppReportsRoute
   '/_app/scan': typeof AppScanRoute
+  '/_app/settings': typeof AppSettingsRoute
   '/_app/simulator': typeof AppSimulatorRoute
   '/api/chat': typeof ApiChatRoute
 }
@@ -145,6 +163,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/onboarding'
     | '/sitemap.xml'
     | '/challenges'
@@ -155,11 +174,13 @@ export interface FileRouteTypes {
     | '/learn'
     | '/reports'
     | '/scan'
+    | '/settings'
     | '/simulator'
     | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/onboarding'
     | '/sitemap.xml'
     | '/challenges'
@@ -170,12 +191,14 @@ export interface FileRouteTypes {
     | '/learn'
     | '/reports'
     | '/scan'
+    | '/settings'
     | '/simulator'
     | '/api/chat'
   id:
     | '__root__'
     | '/'
     | '/_app'
+    | '/auth'
     | '/onboarding'
     | '/sitemap.xml'
     | '/_app/challenges'
@@ -186,6 +209,7 @@ export interface FileRouteTypes {
     | '/_app/learn'
     | '/_app/reports'
     | '/_app/scan'
+    | '/_app/settings'
     | '/_app/simulator'
     | '/api/chat'
   fileRoutesById: FileRoutesById
@@ -193,6 +217,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRoute
   OnboardingRoute: typeof OnboardingRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -212,6 +237,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -240,6 +272,13 @@ declare module '@tanstack/react-router' {
       path: '/simulator'
       fullPath: '/simulator'
       preLoaderRoute: typeof AppSimulatorRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/scan': {
@@ -310,6 +349,7 @@ interface AppRouteChildren {
   AppLearnRoute: typeof AppLearnRoute
   AppReportsRoute: typeof AppReportsRoute
   AppScanRoute: typeof AppScanRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppSimulatorRoute: typeof AppSimulatorRoute
 }
 
@@ -322,6 +362,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppLearnRoute: AppLearnRoute,
   AppReportsRoute: AppReportsRoute,
   AppScanRoute: AppScanRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppSimulatorRoute: AppSimulatorRoute,
 }
 
@@ -330,6 +371,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRoute,
   OnboardingRoute: OnboardingRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiChatRoute: ApiChatRoute,
@@ -337,13 +379,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

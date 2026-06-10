@@ -53,7 +53,7 @@ function SiteNav() {
         <Link to="/learn" className="hover:text-primary transition-colors">Learn</Link>
       </div>
       <Link
-        to="/onboarding"
+        to="/auth"
         className="bg-foreground text-background px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary transition-all active:scale-95"
       >
         Get Started
@@ -88,10 +88,10 @@ function Hero() {
         </p>
         <div className="animate-fade-up flex flex-wrap justify-center gap-4">
           <Link
-            to="/onboarding"
+            to="/auth"
             className="h-14 px-8 inline-flex items-center gap-2 bg-primary text-primary-foreground font-bold rounded-xl hover:glow-primary transition-all"
           >
-            Start onboarding <ArrowRight className="size-4" />
+            Create free account <ArrowRight className="size-4" />
           </Link>
           <Link
             to="/simulator"
@@ -332,7 +332,7 @@ function FinalCta() {
           Join 45,000+ early adopters turning sustainable intent into measurable impact.
         </p>
         <Link
-          to="/onboarding"
+          to="/auth"
           className="inline-flex items-center gap-3 px-10 py-5 bg-primary text-primary-foreground font-bold text-lg rounded-full hover:glow-primary transition-all"
         >
           Start your profile <Zap className="size-5" />
@@ -357,7 +357,7 @@ function SiteFooter() {
       <div className="flex gap-8 text-xs font-medium text-muted-foreground uppercase tracking-widest">
         <Link to="/learn" className="hover:text-primary">Climate Docs</Link>
         <a href="#features" className="hover:text-primary">Features</a>
-        <Link to="/onboarding" className="hover:text-primary">Join</Link>
+        <Link to="/auth" className="hover:text-primary">Join</Link>
     </div>
     </footer>
   );
