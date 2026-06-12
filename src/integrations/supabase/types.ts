@@ -77,6 +77,39 @@ export type Database = {
         }
         Relationships: []
       }
+      scanned_bills: {
+        Row: {
+          created_at: string
+          estimate_kg: number
+          id: string
+          insight: string
+          mime_type: string | null
+          type: string
+          user_id: string
+          vendor: string
+        }
+        Insert: {
+          created_at?: string
+          estimate_kg?: number
+          id?: string
+          insight: string
+          mime_type?: string | null
+          type: string
+          user_id: string
+          vendor: string
+        }
+        Update: {
+          created_at?: string
+          estimate_kg?: number
+          id?: string
+          insight?: string
+          mime_type?: string | null
+          type?: string
+          user_id?: string
+          vendor?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

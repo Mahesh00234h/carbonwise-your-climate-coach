@@ -1,53 +1,58 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Loader2, ScanLine, Sparkles, Upload } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Loader2, ScanLine, Sparkles, Trash2, Upload } from "lucide-react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { Card, PageHeader } from "@/components/AppShell";
+import { supabase } from "@/integrations/supabase/client";
 import { analyzeBill } from "@/lib/scan.functions";
+import { useSession } from "@/lib/use-profile";
 
 export const Route = createFileRoute("/_app/scan")({
   component: ScanPage,
 });
 
-type Result = {
+type ScannedBill = {
+  id: string;
   type: string;
   vendor: string;
-  estimate: string;
+  estimate_kg: number;
   insight: string;
+  created_at: string;
 };
 
-const SAMPLES: Result[] = [
-  {
-    type: "Electricity bill",
-    vendor: "GreenGrid Energy · Oct",
-    estimate: "62 kg CO₂",
-    insight: "Your usage is 8% above your 6-month average. Cooling loads spiked on the 12th and 19th.",
-  },
-  {
-    type: "Fuel receipt",
-    vendor: "Shell · Nov 22",
-    estimate: "34 kg CO₂",
-    insight: "Equivalent to ~280 km of driving. Two of these per month is your biggest swing factor.",
-  },
-  {
-    type: "Grocery receipt",
-    vendor: "Whole Foods · Nov 24",
-    estimate: "11 kg CO₂",
-    insight: "Mostly produce-driven — low impact. Swapping the beef item for chicken would have saved ~3 kg.",
-  },
-];
-
 function ScanPage() {
-  const [results, setResults] = useState<Result[]>([]);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const runAnalyze = useServerFn(analyzeBill);
+  const { userId } = useSession();
+  const qc = useQueryClient();
 
-  const simulate = () => {
-    const next = SAMPLES[results.length % SAMPLES.length];
-    setResults((r) => [next, ...r]);
+  const { data: results = [] } = useQuery({
+    queryKey: ["scanned_bills", userId],
+    enabled: !!userId,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("scanned_bills")
+        .select("id, type, vendor, estimate_kg, insight, created_at")
+        .order("created_at", { ascending: false })
+        .limit(50);
+      if (error) throw error;
+      return data as ScannedBill[];
+    },
+  });
+
+  const totalKg = results.reduce((a, b) => a + Number(b.estimate_kg ?? 0), 0);
+
+  const deleteBill = async (id: string) => {
+    const { error } = await supabase.from("scanned_bills").delete().eq("id", id);
+    if (error) {
+      toast.error("Could not delete");
+      return;
+    }
+    qc.invalidateQueries({ queryKey: ["scanned_bills", userId] });
   };
 
   const onFile = async (file: File) => {
@@ -64,15 +69,18 @@ function ScanPage() {
         r.readAsDataURL(file);
       });
       const out = await runAnalyze({ data: { dataUrl, mimeType: file.type || "image/jpeg" } });
-      setResults((r) => [
-        {
+      if (userId) {
+        const { error } = await supabase.from("scanned_bills").insert({
+          user_id: userId,
           type: out.type,
           vendor: out.vendor,
-          estimate: `${out.estimateKg.toFixed(1)} kg CO₂`,
+          estimate_kg: out.estimateKg,
           insight: out.insight,
-        },
-        ...r,
-      ]);
+          mime_type: file.type || null,
+        });
+        if (error) throw error;
+        qc.invalidateQueries({ queryKey: ["scanned_bills", userId] });
+      }
       toast.success("Bill analyzed");
     } catch (e) {
       console.error(e);
@@ -88,7 +96,12 @@ function ScanPage() {
         eyebrow="AI bill & receipt scanner"
         title="Drop a bill. Get a footprint."
         description="Upload electricity bills, fuel receipts, or shopping receipts. Our AI extracts the carbon math automatically."
-      />
+      >
+        <div className="px-4 py-2 rounded-xl bg-primary/10 border border-primary/20">
+          <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Total scanned</p>
+          <p className="font-mono font-bold text-primary text-lg">{totalKg.toFixed(1)} kg CO₂</p>
+        </div>
+      </PageHeader>
 
       <Card className="border-dashed mb-6">
         <div className="text-center py-10">
@@ -108,22 +121,13 @@ function ScanPage() {
               e.target.value = "";
             }}
           />
-          <div className="flex items-center justify-center gap-3 flex-wrap">
-            <button
-              disabled={loading}
-              onClick={() => inputRef.current?.click()}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:glow-primary transition-all disabled:opacity-50"
-            >
-              <Upload className="size-4" /> Upload file
-            </button>
-            <button
-              disabled={loading}
-              onClick={simulate}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl border border-border text-sm font-semibold hover:bg-muted/40 transition-all disabled:opacity-50"
-            >
-              <ScanLine className="size-4" /> Try a demo scan
-            </button>
-          </div>
+          <button
+            disabled={loading}
+            onClick={() => inputRef.current?.click()}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:glow-primary transition-all disabled:opacity-50"
+          >
+            <ScanLine className="size-4" /> Upload & analyze
+          </button>
         </div>
       </Card>
 
@@ -133,8 +137,8 @@ function ScanPage() {
             Scanned bills will appear here.
           </p>
         ) : (
-          results.map((r, i) => (
-            <Card key={i} className="flex items-start gap-4">
+          results.map((r) => (
+            <Card key={r.id} className="flex items-start gap-4">
               <div className="size-10 shrink-0 rounded-xl bg-accent/10 text-accent grid place-items-center">
                 <Sparkles className="size-5" />
               </div>
@@ -144,10 +148,17 @@ function ScanPage() {
                     <p className="font-bold">{r.type}</p>
                     <p className="text-xs text-muted-foreground font-mono">{r.vendor}</p>
                   </div>
-                  <p className="font-mono text-primary text-2xl font-bold">{r.estimate}</p>
+                  <p className="font-mono text-primary text-2xl font-bold">{Number(r.estimate_kg).toFixed(1)} kg CO₂</p>
                 </div>
                 <p className="text-sm text-muted-foreground mt-3">{r.insight}</p>
               </div>
+              <button
+                onClick={() => deleteBill(r.id)}
+                aria-label="Delete scan"
+                className="size-8 grid place-items-center rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+              >
+                <Trash2 className="size-4" />
+              </button>
             </Card>
           ))
         )}

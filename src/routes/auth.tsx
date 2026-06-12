@@ -134,6 +134,14 @@ function AuthPage() {
           >
             {mode === "signup" ? "Already have an account? Sign in" : "New to CarbonWise? Create an account"}
           </button>
+          {mode === "signin" ? (
+            <Link
+              to="/forgot-password"
+              className="mt-2 block text-xs text-muted-foreground hover:text-primary w-full text-center"
+            >
+              Forgot your password?
+            </Link>
+          ) : null}
         </div>
 
         <p className="text-xs text-center text-muted-foreground mt-6 font-mono uppercase tracking-widest">
