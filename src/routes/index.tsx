@@ -358,6 +358,7 @@ function SiteFooter() {
         <Link to="/learn" className="hover:text-primary">Climate Docs</Link>
         <a href="#features" className="hover:text-primary">Features</a>
         <Link to="/auth" className="hover:text-primary">Join</Link>
+        <Link to="/privacy" className="hover:text-primary">Privacy</Link>
     </div>
     </footer>
   );
