@@ -51,7 +51,7 @@ function PrivacyPage() {
         </Link>
       </nav>
 
-      <main id="main" className="max-w-3xl mx-auto px-6 py-16">
+      <section id="main" className="max-w-3xl mx-auto px-6 py-16">
         <p className="text-xs font-mono uppercase tracking-widest text-primary mb-3">Trust center</p>
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
           Privacy &amp; Trust
@@ -142,7 +142,7 @@ function PrivacyPage() {
         <p className="text-xs text-muted-foreground mt-16">
           Last updated: June 18, 2026. This page may change as the product evolves.
         </p>
-      </main>
+      </section>
     </div>
   );
 }

@@ -149,10 +149,10 @@ function RootComponent() {
       >
         Skip to content
       </a>
-      <div id="main-content">
+      <main id="main-content">
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
-      </div>
+      </main>
       <Toaster richColors position="top-right" />
     </QueryClientProvider>
   );
