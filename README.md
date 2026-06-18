@@ -135,6 +135,31 @@ bun run dev
 
 Visit `http://localhost:5173`. Lovable Cloud injects all required env vars automatically — no `.env` setup needed.
 
+## 🧪 Testing
+
+Pure-function unit tests live next to their sources (e.g. `src/lib/carbon.test.ts`) and run under **Vitest + jsdom + Testing Library**.
+
+```bash
+bun run test        # one-shot
+bun run test:watch  # TDD mode
+```
+
+## ♿ Accessibility
+
+- Skip-to-content link on every page
+- Single `<main>` landmark per route
+- Semantic HTML, WCAG-AA design tokens (no hardcoded contrast-failing colors)
+- All icon-only buttons carry `aria-label`
+- Radix-powered shadcn primitives for correct ARIA on dialogs / menus / popovers
+
+## 🔐 Security & Trust
+
+- Public `/privacy` trust page documenting data collection, retention, AI processing, and security contact
+- Row-Level Security on **every** user table (`auth.uid() = user_id`)
+- Server-only secrets (AI gateway, service role) — never shipped to the client
+- Zod validation on every server-function boundary
+- Password reset via email recovery flow
+
 ---
 
 ## 🏗️ Project structure
