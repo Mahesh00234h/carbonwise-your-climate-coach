@@ -256,7 +256,7 @@ bun run test:watch  # TDD mode
 | **Code Quality** | Strict TypeScript, semantic Tailwind tokens, Zod schemas on every server boundary, pure helpers extracted to `src/lib/carbon.ts`, ESLint + Prettier configured, no dead code. |
 | **Security** | RLS on every user table, `SECURITY DEFINER` profile trigger, server-only secrets, signed-in Auth flow, password recovery, dedicated `/privacy` trust page, no PII in logs. |
 | **Efficiency** | Edge runtime, SSR, streaming AI responses, TanStack Query caching, code-split routes, indexed `user_id` columns, no client-side admin keys. |
-| **Testing** | Vitest + Testing Library + jsdom, **23 passing unit tests across 3 files** (`carbon.test.ts`, `utils.test.ts`, `app-data.test.ts`) covering pure math, level progression, Tailwind class merging, and data-shape invariants. `bun run test` / `bun run test:watch`. |
+| **Testing** | Vitest + Testing Library + jsdom, **33 passing unit tests across 3 files** (`carbon.test.ts`, `utils.test.ts`, `app-data.test.ts`) covering pure math, level progression, Tailwind class merging, and data-shape invariants. `bun run test` / `bun run test:watch`. |
 | **Accessibility** | Skip-to-content link, single `<main>` landmark, semantic HTML, ARIA labels on icon-only buttons, WCAG-AA semantic color tokens, Radix primitives for dialogs/menus, keyboard-navigable. |
 | **Problem Statement Alignment** | Directly attacks the "awareness → action gap" with personalization, gamification, real-life equivalents, AI coaching, bill scanning, and community — exactly what the brief asked for. |
 
