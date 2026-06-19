@@ -52,16 +52,34 @@ function Dashboard() {
           accent
           hint="vs your daily average"
         />
-        <StatCard label="This week" value={`${weeklyEmissions.reduce((a, b) => a + b.kg, 0).toFixed(0)} kg`} delta="−9%" hint="vs last week" />
-        <StatCard label="This month" value={`${monthly} kg`} delta="−12%" hint={`= ${kgToKm(monthly)} km driven`} />
-        <StatCard label="Sustainability score" value="78" delta="+6" hint="Green Warrior tier" accent />
+        <StatCard
+          label="This week"
+          value={`${weeklyEmissions.reduce((a, b) => a + b.kg, 0).toFixed(0)} kg`}
+          delta="−9%"
+          hint="vs last week"
+        />
+        <StatCard
+          label="This month"
+          value={`${monthly} kg`}
+          delta="−12%"
+          hint={`= ${kgToKm(monthly)} km driven`}
+        />
+        <StatCard
+          label="Sustainability score"
+          value="78"
+          delta="+6"
+          hint="Green Warrior tier"
+          accent
+        />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6 mb-6">
         <Card className="lg:col-span-2">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono">Daily trend</p>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono">
+                Daily trend
+              </p>
               <h2 className="text-xl font-bold">Last 30 days</h2>
             </div>
             <div className="flex items-center gap-1 text-primary font-mono text-sm">
@@ -77,7 +95,11 @@ function Dashboard() {
                     <stop offset="100%" stopColor="var(--color-primary)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid stroke="var(--color-border)" strokeDasharray="2 4" vertical={false} />
+                <CartesianGrid
+                  stroke="var(--color-border)"
+                  strokeDasharray="2 4"
+                  vertical={false}
+                />
                 <XAxis dataKey="date" stroke="var(--color-muted-foreground)" fontSize={11} />
                 <YAxis stroke="var(--color-muted-foreground)" fontSize={11} />
                 <Tooltip
@@ -100,7 +122,9 @@ function Dashboard() {
         </Card>
 
         <Card>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono mb-1">Breakdown</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono mb-1">
+            Breakdown
+          </p>
           <h2 className="text-xl font-bold mb-4">By source</h2>
           <div className="h-44">
             <ResponsiveContainer width="100%" height="100%">
@@ -136,10 +160,13 @@ function Dashboard() {
 
       <div className="grid lg:grid-cols-3 gap-6">
         <Card className="bg-aurora text-primary-foreground">
-          <p className="text-xs uppercase tracking-widest opacity-80 font-mono mb-2">AI suggestion</p>
+          <p className="text-xs uppercase tracking-widest opacity-80 font-mono mb-2">
+            AI suggestion
+          </p>
           <p className="text-lg font-bold leading-snug mb-4">
-            Your Tuesday commute is your largest emission source. Swapping it for the 8:15 express train this week
-            saves about <span className="underline decoration-2 underline-offset-4">28 kg CO₂</span>.
+            Your Tuesday commute is your largest emission source. Swapping it for the 8:15 express
+            train this week saves about{" "}
+            <span className="underline decoration-2 underline-offset-4">28 kg CO₂</span>.
           </p>
           <Link
             to="/coach"
@@ -150,23 +177,41 @@ function Dashboard() {
         </Card>
 
         <Card>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono mb-2">In real life</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono mb-2">
+            In real life
+          </p>
           <p className="text-lg font-bold mb-4">Your monthly emissions equal…</p>
           <ul className="space-y-3 text-sm">
-            <li className="flex gap-3"><Leaf className="size-4 text-primary mt-0.5" /> {kgToKm(monthly)} km driven in an average car</li>
-            <li className="flex gap-3"><Leaf className="size-4 text-primary mt-0.5" /> {tonsToTrees(monthly)} trees to absorb in a year</li>
-            <li className="flex gap-3"><Leaf className="size-4 text-primary mt-0.5" /> Powering a fridge for {Math.round(monthly / 1.2)} days</li>
+            <li className="flex gap-3">
+              <Leaf className="size-4 text-primary mt-0.5" /> {kgToKm(monthly)} km driven in an
+              average car
+            </li>
+            <li className="flex gap-3">
+              <Leaf className="size-4 text-primary mt-0.5" /> {tonsToTrees(monthly)} trees to absorb
+              in a year
+            </li>
+            <li className="flex gap-3">
+              <Leaf className="size-4 text-primary mt-0.5" /> Powering a fridge for{" "}
+              {Math.round(monthly / 1.2)} days
+            </li>
           </ul>
         </Card>
 
         <Card>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono mb-2">Average</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono mb-2">
+            Average
+          </p>
           <p className="text-lg font-bold mb-4">Daily impact</p>
-          <p className="font-mono text-5xl text-primary font-bold">{dailyAvg}<span className="text-base text-muted-foreground"> kg/day</span></p>
+          <p className="font-mono text-5xl text-primary font-bold">
+            {dailyAvg}
+            <span className="text-base text-muted-foreground"> kg/day</span>
+          </p>
           <div className="mt-4 h-2 w-full bg-secondary rounded-full overflow-hidden">
             <div className="h-full bg-primary" style={{ width: "60%" }} />
           </div>
-          <p className="text-xs text-muted-foreground mt-2">National avg: 22 kg/day · You're 36% lower</p>
+          <p className="text-xs text-muted-foreground mt-2">
+            National avg: 22 kg/day · You're 36% lower
+          </p>
           <div className="flex items-center gap-2 mt-4 text-xs text-accent font-mono">
             <Flame className="size-3" /> 12-day reduction streak
           </div>
@@ -190,9 +235,15 @@ function StatCard({
   accent?: boolean;
 }) {
   return (
-    <div className={`rounded-2xl border p-5 ${accent ? "border-primary/30 bg-primary/5" : "border-border bg-surface"}`}>
+    <div
+      className={`rounded-2xl border p-5 ${accent ? "border-primary/30 bg-primary/5" : "border-border bg-surface"}`}
+    >
       <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono">{label}</p>
-      <p className={`text-3xl font-mono font-bold mt-2 ${accent ? "text-primary" : "text-foreground"}`}>{value}</p>
+      <p
+        className={`text-3xl font-mono font-bold mt-2 ${accent ? "text-primary" : "text-foreground"}`}
+      >
+        {value}
+      </p>
       <p className="text-xs mt-1 flex items-center gap-1.5">
         <span className="text-accent font-mono font-semibold">{delta}</span>
         <span className="text-muted-foreground">{hint}</span>

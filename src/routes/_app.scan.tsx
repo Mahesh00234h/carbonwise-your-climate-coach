@@ -98,7 +98,9 @@ function ScanPage() {
         description="Upload electricity bills, fuel receipts, or shopping receipts. Our AI extracts the carbon math automatically."
       >
         <div className="px-4 py-2 rounded-xl bg-primary/10 border border-primary/20">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Total scanned</p>
+          <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+            Total scanned
+          </p>
           <p className="font-mono font-bold text-primary text-lg">{totalKg.toFixed(1)} kg CO₂</p>
         </div>
       </PageHeader>
@@ -108,7 +110,9 @@ function ScanPage() {
           <div className="size-14 mx-auto rounded-2xl bg-primary/10 text-primary grid place-items-center mb-4">
             {loading ? <Loader2 className="size-6 animate-spin" /> : <Upload className="size-6" />}
           </div>
-          <p className="font-semibold mb-1">{loading ? "Analyzing with AI…" : "Upload a bill or receipt"}</p>
+          <p className="font-semibold mb-1">
+            {loading ? "Analyzing with AI…" : "Upload a bill or receipt"}
+          </p>
           <p className="text-xs text-muted-foreground mb-6">PDF, JPG, or PNG · up to 10MB</p>
           <input
             ref={inputRef}
@@ -148,7 +152,9 @@ function ScanPage() {
                     <p className="font-bold">{r.type}</p>
                     <p className="text-xs text-muted-foreground font-mono">{r.vendor}</p>
                   </div>
-                  <p className="font-mono text-primary text-2xl font-bold">{Number(r.estimate_kg).toFixed(1)} kg CO₂</p>
+                  <p className="font-mono text-primary text-2xl font-bold">
+                    {Number(r.estimate_kg).toFixed(1)} kg CO₂
+                  </p>
                 </div>
                 <p className="text-sm text-muted-foreground mt-3">{r.insight}</p>
               </div>

@@ -61,10 +61,7 @@ export function useUpdateProfile() {
   return useMutation({
     mutationFn: async (patch: Partial<Omit<Profile, "id">>) => {
       if (!userId) throw new Error("Not signed in");
-      const { error } = await supabase
-        .from("profiles")
-        .update(patch)
-        .eq("id", userId);
+      const { error } = await supabase.from("profiles").update(patch).eq("id", userId);
       if (error) throw error;
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["profile", userId] }),
@@ -122,7 +119,6 @@ export function useToggleHabit() {
         if (error) throw error;
       }
     },
-    onSuccess: () =>
-      qc.invalidateQueries({ queryKey: ["habit_logs", userId, todayUTC()] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["habit_logs", userId, todayUTC()] }),
   });
 }

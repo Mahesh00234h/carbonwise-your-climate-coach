@@ -82,7 +82,12 @@
   --border: oklch(0.25 0.02 250);
   --input: oklch(0.24 0.02 250);
   --ring: oklch(0.82 0.18 165);
-  --aurora: linear-gradient(135deg, oklch(0.82 0.18 165) 0%, oklch(0.7 0.18 235) 50%, oklch(0.65 0.22 295) 100%);
+  --aurora: linear-gradient(
+    135deg,
+    oklch(0.82 0.18 165) 0%,
+    oklch(0.7 0.18 235) 50%,
+    oklch(0.65 0.22 295) 100%
+  );
   --chart-1: oklch(0.82 0.18 165);
   --chart-2: oklch(0.7 0.18 235);
   --chart-3: oklch(0.78 0.18 90);
@@ -116,16 +121,35 @@
 }
 
 @keyframes fade-up {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes scale-in {
-  0% { transform: scale(0.95); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 @keyframes aurora-pulse {
-  0%, 100% { opacity: 0.4; transform: translate(0, 0) scale(1); }
-  50% { opacity: 0.7; transform: translate(2%, -2%) scale(1.05); }
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(2%, -2%) scale(1.05);
+  }
 }
 
 @utility animate-fade-up {

@@ -52,7 +52,9 @@ function Simulator() {
 
       <div className="grid lg:grid-cols-2 gap-6">
         <Card>
-          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">Adjust your lifestyle</p>
+          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">
+            Adjust your lifestyle
+          </p>
           <div className="space-y-8">
             <Slider
               label="Swap car for public transport"
@@ -119,7 +121,9 @@ function Simulator() {
 
           <Card>
             <div className="flex items-center justify-between mb-4">
-              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">12-month projection</p>
+              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                12-month projection
+              </p>
               <span className="text-primary font-mono text-xs flex items-center gap-1">
                 <TrendingDown className="size-3" /> Trend
               </span>
@@ -127,7 +131,11 @@ function Simulator() {
             <div className="h-48">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={projection}>
-                  <CartesianGrid stroke="var(--color-border)" strokeDasharray="2 4" vertical={false} />
+                  <CartesianGrid
+                    stroke="var(--color-border)"
+                    strokeDasharray="2 4"
+                    vertical={false}
+                  />
                   <XAxis dataKey="month" stroke="var(--color-muted-foreground)" fontSize={11} />
                   <YAxis stroke="var(--color-muted-foreground)" fontSize={11} />
                   <Tooltip

@@ -40,7 +40,9 @@ function ReportsPage() {
           <Card key={r.period}>
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
-                <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{r.period}</p>
+                <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                  {r.period}
+                </p>
                 <h2 className="text-2xl font-bold mt-1">Sustainability briefing</h2>
               </div>
               <div className="flex items-center gap-3">
@@ -70,7 +72,9 @@ function ReportsPage() {
                 </ul>
               </div>
               <div className="p-4 rounded-xl bg-background border border-border">
-                <p className="text-xs font-mono uppercase tracking-widest text-primary mb-3">Focus next</p>
+                <p className="text-xs font-mono uppercase tracking-widest text-primary mb-3">
+                  Focus next
+                </p>
                 <ul className="space-y-2 text-sm">
                   {r.focus.map((f) => (
                     <li key={f} className="flex gap-2">

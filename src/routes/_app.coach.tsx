@@ -83,7 +83,10 @@ function CoachPage() {
                 >
                   {m.parts.map((p, i) =>
                     p.type === "text" ? (
-                      <div key={i} className="prose prose-invert prose-sm max-w-none prose-p:my-2 prose-li:my-0">
+                      <div
+                        key={i}
+                        className="prose prose-invert prose-sm max-w-none prose-p:my-2 prose-li:my-0"
+                      >
                         <ReactMarkdown>{p.text}</ReactMarkdown>
                       </div>
                     ) : null,
