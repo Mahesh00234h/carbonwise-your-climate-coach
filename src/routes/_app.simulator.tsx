@@ -184,13 +184,17 @@ function Slider({
   onChange: (n: number) => void;
   suffix: string;
 }) {
+  const id = React.useId();
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <label className="text-sm font-medium">{label}</label>
+        <label htmlFor={id} className="text-sm font-medium">
+          {label}
+        </label>
         <span className="text-sm font-mono text-primary">{suffix}</span>
       </div>
       <input
+        id={id}
         type="range"
         min={0}
         max={max}

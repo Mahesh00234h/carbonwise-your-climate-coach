@@ -118,6 +118,7 @@ function ScanPage() {
             ref={inputRef}
             type="file"
             accept="image/*,application/pdf"
+            aria-label="Upload a bill or receipt to analyze"
             className="hidden"
             onChange={(e) => {
               const f = e.target.files?.[0];
