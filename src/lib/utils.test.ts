@@ -12,7 +12,9 @@ describe("cn", () => {
   });
 
   it("handles conditional inputs", () => {
-    expect(cn("a", false && "b", null, undefined, "c")).toBe("a c");
+    const truthy = true as boolean;
+    const falsy = false as boolean;
+    expect(cn("a", falsy && "b", null, undefined, truthy && "c")).toBe("a c");
     expect(cn(["a", ["b", { c: true, d: false }]])).toBe("a b c");
   });
 });
