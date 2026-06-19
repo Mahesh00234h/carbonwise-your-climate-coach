@@ -12,9 +12,8 @@ describe("cn", () => {
   });
 
   it("handles conditional inputs", () => {
-    const truthy = true as boolean;
-    const falsy = false as boolean;
-    expect(cn("a", falsy && "b", null, undefined, truthy && "c")).toBe("a c");
+    const hide = (): false => false;
+    expect(cn("a", hide() && "b", null, undefined, "c")).toBe("a c");
     expect(cn(["a", ["b", { c: true, d: false }]])).toBe("a b c");
   });
 });
