@@ -45,14 +45,55 @@ export const HABITS: { id: HabitId; label: string; icon: string; xp: number; co2
 ];
 
 export const CHALLENGES = [
-  { id: "plastic-free", title: "Plastic-Free Week", days: 7, progress: 4, xp: 500, desc: "Skip every single-use plastic for 7 days." },
-  { id: "green-commute", title: "Green Commute Challenge", days: 14, progress: 9, xp: 800, desc: "Replace car trips with walking, cycling, or transit." },
-  { id: "low-energy", title: "Low Energy Challenge", days: 10, progress: 2, xp: 600, desc: "Cut household electricity 20% for 10 days." },
-  { id: "water", title: "Water Conservation", days: 7, progress: 0, xp: 400, desc: "Save 50L of water per day through small changes." },
-  { id: "eco-shop", title: "Eco Shopping Challenge", days: 7, progress: 0, xp: 450, desc: "Buy only second-hand or low-impact items." },
+  {
+    id: "plastic-free",
+    title: "Plastic-Free Week",
+    days: 7,
+    progress: 4,
+    xp: 500,
+    desc: "Skip every single-use plastic for 7 days.",
+  },
+  {
+    id: "green-commute",
+    title: "Green Commute Challenge",
+    days: 14,
+    progress: 9,
+    xp: 800,
+    desc: "Replace car trips with walking, cycling, or transit.",
+  },
+  {
+    id: "low-energy",
+    title: "Low Energy Challenge",
+    days: 10,
+    progress: 2,
+    xp: 600,
+    desc: "Cut household electricity 20% for 10 days.",
+  },
+  {
+    id: "water",
+    title: "Water Conservation",
+    days: 7,
+    progress: 0,
+    xp: 400,
+    desc: "Save 50L of water per day through small changes.",
+  },
+  {
+    id: "eco-shop",
+    title: "Eco Shopping Challenge",
+    days: 7,
+    progress: 0,
+    xp: 450,
+    desc: "Buy only second-hand or low-impact items.",
+  },
 ];
 
-export const LEVELS = ["Seedling", "Eco Explorer", "Green Warrior", "Climate Champion", "Earth Guardian"];
+export const LEVELS = [
+  "Seedling",
+  "Eco Explorer",
+  "Green Warrior",
+  "Climate Champion",
+  "Earth Guardian",
+];
 
 export const LEADERBOARD = [
   { name: "Lina H.", xp: 14820, badge: "Climate Champion" },
@@ -64,12 +105,48 @@ export const LEADERBOARD = [
 ];
 
 export const LEARN_TOPICS = [
-  { id: "basics", title: "Climate change basics", minutes: 6, tag: "Foundation", desc: "What's actually happening to the atmosphere — and what you can do about it." },
-  { id: "footprint", title: "What is a carbon footprint?", minutes: 4, tag: "Foundation", desc: "The everyday choices that secretly drive your emissions." },
-  { id: "energy", title: "Renewable energy 101", minutes: 8, tag: "Energy", desc: "Solar, wind, geothermal — what to install, what to ignore." },
-  { id: "waste", title: "The waste reduction playbook", minutes: 5, tag: "Habits", desc: "Composting, recycling done right, and the 'refuse first' rule." },
-  { id: "diet", title: "Eating for the planet", minutes: 7, tag: "Food", desc: "Why one plant-forward day a week beats 'going vegan' for most people." },
-  { id: "travel", title: "Low-impact travel", minutes: 6, tag: "Transport", desc: "Trains, EVs, and when offsets actually matter." },
+  {
+    id: "basics",
+    title: "Climate change basics",
+    minutes: 6,
+    tag: "Foundation",
+    desc: "What's actually happening to the atmosphere — and what you can do about it.",
+  },
+  {
+    id: "footprint",
+    title: "What is a carbon footprint?",
+    minutes: 4,
+    tag: "Foundation",
+    desc: "The everyday choices that secretly drive your emissions.",
+  },
+  {
+    id: "energy",
+    title: "Renewable energy 101",
+    minutes: 8,
+    tag: "Energy",
+    desc: "Solar, wind, geothermal — what to install, what to ignore.",
+  },
+  {
+    id: "waste",
+    title: "The waste reduction playbook",
+    minutes: 5,
+    tag: "Habits",
+    desc: "Composting, recycling done right, and the 'refuse first' rule.",
+  },
+  {
+    id: "diet",
+    title: "Eating for the planet",
+    minutes: 7,
+    tag: "Food",
+    desc: "Why one plant-forward day a week beats 'going vegan' for most people.",
+  },
+  {
+    id: "travel",
+    title: "Low-impact travel",
+    minutes: 6,
+    tag: "Transport",
+    desc: "Trains, EVs, and when offsets actually matter.",
+  },
 ];
 
 export function tonsToTrees(kg: number) {

@@ -112,9 +112,7 @@ function SettingsPage() {
               />
             </Field>
 
-            {error ? (
-              <p className="text-sm text-destructive">{error}</p>
-            ) : null}
+            {error ? <p className="text-sm text-destructive">{error}</p> : null}
             {msg ? <p className="text-sm text-primary">{msg}</p> : null}
 
             <button
@@ -134,7 +132,9 @@ function SettingsPage() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="grid gap-2">
-      <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{label}</span>
+      <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+        {label}
+      </span>
       {children}
     </label>
   );

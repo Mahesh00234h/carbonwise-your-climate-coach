@@ -38,15 +38,21 @@ function HabitsPage() {
 
       <div className="grid md:grid-cols-3 gap-4 mb-8">
         <Card>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono">Today's XP</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono">
+            Today's XP
+          </p>
           <p className="text-3xl font-mono font-bold text-primary mt-2">+{xp}</p>
         </Card>
         <Card>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono">CO₂ saved today</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono">
+            CO₂ saved today
+          </p>
           <p className="text-3xl font-mono font-bold text-accent mt-2">{co2.toFixed(1)} kg</p>
         </Card>
         <Card>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono">Current streak</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground font-mono">
+            Current streak
+          </p>
           <p className="text-3xl font-mono font-bold mt-2 flex items-center gap-2">
             12 <Flame className="size-6 text-amber-400" />
           </p>

@@ -53,10 +53,7 @@ export function levelFromXp(xp: number, thresholds = [0, 1200, 3600, 8400, 14000
  * Progress (0..1) towards the next XP threshold. Returns 1 at the cap.
  * Useful for rendering a level progress bar.
  */
-export function levelProgress(
-  xp: number,
-  thresholds = [0, 1200, 3600, 8400, 14000],
-): number {
+export function levelProgress(xp: number, thresholds = [0, 1200, 3600, 8400, 14000]): number {
   if (!Number.isFinite(xp) || xp <= 0) return 0;
   const level = levelFromXp(xp, thresholds);
   if (level >= thresholds.length - 1) return 1;

@@ -38,7 +38,9 @@ function ChallengesPage() {
 
               <div>
                 <div className="flex items-center justify-between text-xs font-mono mb-2 text-muted-foreground">
-                  <span>{c.progress} / {c.days} days</span>
+                  <span>
+                    {c.progress} / {c.days} days
+                  </span>
                   <span>{pct}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">

@@ -16,9 +16,17 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "CarbonWise — Small choices, massive legacy" },
-      { name: "description", content: "Meet your AI sustainability coach. Track your carbon footprint, simulate the future, and build habits that change the planet." },
+      {
+        name: "description",
+        content:
+          "Meet your AI sustainability coach. Track your carbon footprint, simulate the future, and build habits that change the planet.",
+      },
       { property: "og:title", content: "CarbonWise — Small choices, massive legacy" },
-      { property: "og:description", content: "Meet your AI sustainability coach. Track your carbon footprint, simulate the future, and build habits that change the planet." },
+      {
+        property: "og:description",
+        content:
+          "Meet your AI sustainability coach. Track your carbon footprint, simulate the future, and build habits that change the planet.",
+      },
     ],
   }),
   component: Index,
@@ -47,10 +55,18 @@ function SiteNav() {
         <span className="font-mono font-bold tracking-tighter text-lg uppercase">CarbonWise</span>
       </Link>
       <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-        <a href="#features" className="hover:text-primary transition-colors">Features</a>
-        <a href="#dashboard" className="hover:text-primary transition-colors">Intelligence</a>
-        <a href="#levels" className="hover:text-primary transition-colors">Levels</a>
-        <Link to="/learn" className="hover:text-primary transition-colors">Learn</Link>
+        <a href="#features" className="hover:text-primary transition-colors">
+          Features
+        </a>
+        <a href="#dashboard" className="hover:text-primary transition-colors">
+          Intelligence
+        </a>
+        <a href="#levels" className="hover:text-primary transition-colors">
+          Levels
+        </a>
+        <Link to="/learn" className="hover:text-primary transition-colors">
+          Learn
+        </Link>
       </div>
       <Link
         to="/auth"
@@ -84,7 +100,8 @@ function Hero() {
           <span className="text-aurora">Massive legacy.</span>
         </h1>
         <p className="animate-fade-up text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 text-pretty">
-          The world's first carbon intelligence coach. We don't just calculate your footprint — we simulate your future and guide your daily transition.
+          The world's first carbon intelligence coach. We don't just calculate your footprint — we
+          simulate your future and guide your daily transition.
         </p>
         <div className="animate-fade-up flex flex-wrap justify-center gap-4">
           <Link
@@ -106,7 +123,9 @@ function Hero() {
         <div className="bg-background rounded-xl p-6 md:p-8">
           <div className="flex items-center justify-between mb-8 border-b border-border pb-6">
             <div>
-              <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">Real-time intelligence</p>
+              <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
+                Real-time intelligence
+              </p>
               <h3 className="text-xl font-bold">Personal Dashboard</h3>
             </div>
             <div className="size-12 rounded-full border-4 border-primary border-t-transparent animate-spin [animation-duration:3s]" />
@@ -155,7 +174,9 @@ function ImpactStrip() {
         {stats.map((s) => (
           <div key={s.label} className="px-6 py-8 text-center">
             <p className="font-mono text-3xl md:text-4xl font-bold text-primary">{s.value}</p>
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mt-2">{s.label}</p>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mt-2">
+              {s.label}
+            </p>
           </div>
         ))}
       </div>
@@ -206,8 +227,12 @@ function FeatureGrid() {
     <section id="features" className="px-6 py-24 bg-white/[0.02]">
       <div className="max-w-6xl mx-auto">
         <div className="max-w-2xl mb-16">
-          <p className="text-xs font-mono uppercase tracking-widest text-primary mb-4">The platform</p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Everything you need to live lighter.</h2>
+          <p className="text-xs font-mono uppercase tracking-widest text-primary mb-4">
+            The platform
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+            Everything you need to live lighter.
+          </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((f) => (
@@ -241,12 +266,15 @@ function DashboardPreview() {
     <section id="dashboard" className="px-6 py-24">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <p className="text-xs font-mono uppercase tracking-widest text-accent mb-4">Carbon intelligence</p>
+          <p className="text-xs font-mono uppercase tracking-widest text-accent mb-4">
+            Carbon intelligence
+          </p>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
             Numbers that mean something <span className="text-aurora">in real life</span>.
           </h2>
           <p className="text-muted-foreground text-lg mb-8">
-            Your monthly footprint is not just a kilogram count. It's the distance you've driven, the appliances you've powered, the trees it would take to absorb it.
+            Your monthly footprint is not just a kilogram count. It's the distance you've driven,
+            the appliances you've powered, the trees it would take to absorb it.
           </p>
           <ul className="space-y-4 text-sm">
             {[
@@ -266,7 +294,9 @@ function DashboardPreview() {
           <div className="flex items-center justify-between mb-6">
             <div>
               <p className="text-xs font-mono text-muted-foreground uppercase">November</p>
-              <p className="text-3xl font-mono font-bold text-primary">428 <span className="text-base text-muted-foreground">kg CO₂</span></p>
+              <p className="text-3xl font-mono font-bold text-primary">
+                428 <span className="text-base text-muted-foreground">kg CO₂</span>
+              </p>
             </div>
             <div className="text-right">
               <p className="text-xs text-muted-foreground">vs last month</p>
@@ -276,11 +306,19 @@ function DashboardPreview() {
           {/* Bar chart mini */}
           <div className="flex items-end gap-2 h-32">
             {[40, 60, 35, 70, 45, 55, 30, 50, 38, 25, 33, 28].map((h, i) => (
-              <div key={i} className="flex-1 rounded-t bg-gradient-to-t from-primary/30 to-primary" style={{ height: `${h}%` }} />
+              <div
+                key={i}
+                className="flex-1 rounded-t bg-gradient-to-t from-primary/30 to-primary"
+                style={{ height: `${h}%` }}
+              />
             ))}
           </div>
           <div className="mt-6 flex items-center justify-between text-xs text-muted-foreground font-mono">
-            <span>Jan</span><span>Apr</span><span>Jul</span><span>Oct</span><span>Dec</span>
+            <span>Jan</span>
+            <span>Apr</span>
+            <span>Jul</span>
+            <span>Oct</span>
+            <span>Dec</span>
           </div>
         </div>
       </div>
@@ -289,12 +327,22 @@ function DashboardPreview() {
 }
 
 function LevelPath() {
-  const levels = ["Seedling", "Eco Explorer", "Green Warrior", "Climate Champion", "Earth Guardian"];
+  const levels = [
+    "Seedling",
+    "Eco Explorer",
+    "Green Warrior",
+    "Climate Champion",
+    "Earth Guardian",
+  ];
   return (
     <section id="levels" className="px-6 py-24 bg-white/[0.02] border-y border-border">
       <div className="max-w-6xl mx-auto text-center">
-        <p className="text-xs font-mono uppercase tracking-widest text-primary mb-4">Gamified progress</p>
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-16">Level up your impact.</h2>
+        <p className="text-xs font-mono uppercase tracking-widest text-primary mb-4">
+          Gamified progress
+        </p>
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-16">
+          Level up your impact.
+        </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
           {levels.map((lvl, i) => (
@@ -355,11 +403,19 @@ function SiteFooter() {
         </span>
       </div>
       <div className="flex gap-8 text-xs font-medium text-muted-foreground uppercase tracking-widest">
-        <Link to="/learn" className="hover:text-primary">Climate Docs</Link>
-        <a href="#features" className="hover:text-primary">Features</a>
-        <Link to="/auth" className="hover:text-primary">Join</Link>
-        <Link to="/privacy" className="hover:text-primary">Privacy</Link>
-    </div>
+        <Link to="/learn" className="hover:text-primary">
+          Climate Docs
+        </Link>
+        <a href="#features" className="hover:text-primary">
+          Features
+        </a>
+        <Link to="/auth" className="hover:text-primary">
+          Join
+        </Link>
+        <Link to="/privacy" className="hover:text-primary">
+          Privacy
+        </Link>
+      </div>
     </footer>
   );
 }

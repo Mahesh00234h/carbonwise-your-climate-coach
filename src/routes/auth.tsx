@@ -8,7 +8,11 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Sign in — CarbonWise" },
-      { name: "description", content: "Sign in or create a free CarbonWise account to save your carbon profile and goals." },
+      {
+        name: "description",
+        content:
+          "Sign in or create a free CarbonWise account to save your carbon profile and goals.",
+      },
     ],
   }),
   component: AuthPage,
@@ -88,7 +92,9 @@ function AuthPage() {
 
           <form onSubmit={submit} className="grid gap-4">
             <label className="grid gap-2">
-              <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Email</span>
+              <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                Email
+              </span>
               <input
                 type="email"
                 autoComplete="email"
@@ -99,7 +105,9 @@ function AuthPage() {
               />
             </label>
             <label className="grid gap-2">
-              <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Password</span>
+              <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                Password
+              </span>
               <input
                 type="password"
                 autoComplete={mode === "signup" ? "new-password" : "current-password"}
@@ -132,7 +140,9 @@ function AuthPage() {
             }}
             className="mt-6 text-sm text-muted-foreground hover:text-foreground w-full text-center"
           >
-            {mode === "signup" ? "Already have an account? Sign in" : "New to CarbonWise? Create an account"}
+            {mode === "signup"
+              ? "Already have an account? Sign in"
+              : "New to CarbonWise? Create an account"}
           </button>
           {mode === "signin" ? (
             <Link

@@ -65,7 +65,9 @@ function ResetPasswordPage() {
           <span className="font-mono font-bold tracking-tighter uppercase">CarbonWise</span>
         </Link>
         <div className="rounded-3xl border border-border bg-surface p-8">
-          <p className="text-xs font-mono uppercase tracking-widest text-primary mb-3">New password</p>
+          <p className="text-xs font-mono uppercase tracking-widest text-primary mb-3">
+            New password
+          </p>
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">Set a new password</h1>
           {!ready ? (
             <p className="text-sm text-muted-foreground">
@@ -76,7 +78,9 @@ function ResetPasswordPage() {
           ) : (
             <form onSubmit={submit} className="grid gap-4">
               <label className="grid gap-2">
-                <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">New password</span>
+                <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                  New password
+                </span>
                 <input
                   type="password"
                   autoComplete="new-password"

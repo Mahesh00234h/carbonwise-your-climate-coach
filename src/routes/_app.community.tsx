@@ -39,7 +39,10 @@ function CommunityPage() {
                   {i + 1}
                 </span>
                 <div className="flex-1">
-                  <p className="font-semibold">{row.name}{row.you ? <span className="text-primary text-xs ml-2">YOU</span> : null}</p>
+                  <p className="font-semibold">
+                    {row.name}
+                    {row.you ? <span className="text-primary text-xs ml-2">YOU</span> : null}
+                  </p>
                   <p className="text-xs text-muted-foreground">{row.badge}</p>
                 </div>
                 <p className="font-mono text-primary font-bold">{row.xp.toLocaleString()} XP</p>
@@ -49,7 +52,9 @@ function CommunityPage() {
         </Card>
 
         <Card className="bg-aurora text-primary-foreground">
-          <p className="text-xs font-mono uppercase tracking-widest opacity-80 mb-2">Collective milestone</p>
+          <p className="text-xs font-mono uppercase tracking-widest opacity-80 mb-2">
+            Collective milestone
+          </p>
           <p className="text-2xl font-bold leading-snug mb-4">
             "Our community has saved enough CO₂ to equal planting 57,142 trees this month."
           </p>
@@ -60,10 +65,20 @@ function CommunityPage() {
   );
 }
 
-function CollectiveStat({ value, label, accent }: { value: string; label: string; accent?: boolean }) {
+function CollectiveStat({
+  value,
+  label,
+  accent,
+}: {
+  value: string;
+  label: string;
+  accent?: boolean;
+}) {
   return (
     <Card>
-      <p className={`font-mono text-3xl font-bold ${accent ? "text-accent" : "text-primary"}`}>{value}</p>
+      <p className={`font-mono text-3xl font-bold ${accent ? "text-accent" : "text-primary"}`}>
+        {value}
+      </p>
       <p className="text-xs text-muted-foreground uppercase tracking-widest mt-2">{label}</p>
     </Card>
   );

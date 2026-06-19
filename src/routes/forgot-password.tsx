@@ -8,7 +8,10 @@ export const Route = createFileRoute("/forgot-password")({
   head: () => ({
     meta: [
       { title: "Reset password — CarbonWise" },
-      { name: "description", content: "Send a password reset link to your CarbonWise account email." },
+      {
+        name: "description",
+        content: "Send a password reset link to your CarbonWise account email.",
+      },
     ],
   }),
   component: ForgotPasswordPage,
@@ -52,18 +55,23 @@ function ForgotPasswordPage() {
           <span className="font-mono font-bold tracking-tighter uppercase">CarbonWise</span>
         </Link>
         <div className="rounded-3xl border border-border bg-surface p-8">
-          <p className="text-xs font-mono uppercase tracking-widest text-primary mb-3">Reset password</p>
+          <p className="text-xs font-mono uppercase tracking-widest text-primary mb-3">
+            Reset password
+          </p>
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">
             Forgot your password?
           </h1>
           {sent ? (
             <p className="text-sm text-muted-foreground">
-              If an account exists for <span className="font-mono text-foreground">{email}</span>, we sent a reset link. Check your inbox.
+              If an account exists for <span className="font-mono text-foreground">{email}</span>,
+              we sent a reset link. Check your inbox.
             </p>
           ) : (
             <form onSubmit={submit} className="grid gap-4">
               <label className="grid gap-2">
-                <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Email</span>
+                <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                  Email
+                </span>
                 <input
                   type="email"
                   required

@@ -150,22 +150,14 @@ export function PageHeader({
           <p className="text-xs font-mono uppercase tracking-widest text-primary mb-2">{eyebrow}</p>
         ) : null}
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{title}</h1>
-        {description ? (
-          <p className="text-muted-foreground mt-2 max-w-2xl">{description}</p>
-        ) : null}
+        {description ? <p className="text-muted-foreground mt-2 max-w-2xl">{description}</p> : null}
       </div>
       {children}
     </header>
   );
 }
 
-export function Card({
-  children,
-  className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <div className={`rounded-2xl border border-border bg-surface p-6 ${className}`}>{children}</div>
   );

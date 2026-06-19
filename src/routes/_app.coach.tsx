@@ -83,7 +83,10 @@ function CoachPage() {
                 >
                   {m.parts.map((p, i) =>
                     p.type === "text" ? (
-                      <div key={i} className="prose prose-invert prose-sm max-w-none prose-p:my-2 prose-li:my-0">
+                      <div
+                        key={i}
+                        className="prose prose-invert prose-sm max-w-none prose-p:my-2 prose-li:my-0"
+                      >
                         <ReactMarkdown>{p.text}</ReactMarkdown>
                       </div>
                     ) : null,
@@ -113,6 +116,7 @@ function CoachPage() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask your coach…"
+            aria-label="Message your AI carbon coach"
             className="flex-1 bg-background border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary/40"
           />
           <button

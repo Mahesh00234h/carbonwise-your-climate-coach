@@ -16,9 +16,7 @@ export const Route = createFileRoute("/privacy")({
       },
       { property: "og:url", content: "https://carbon-wise-coach.lovable.app/privacy" },
     ],
-    links: [
-      { rel: "canonical", href: "https://carbon-wise-coach.lovable.app/privacy" },
-    ],
+    links: [{ rel: "canonical", href: "https://carbon-wise-coach.lovable.app/privacy" }],
   }),
   component: PrivacyPage,
 });
@@ -52,10 +50,10 @@ function PrivacyPage() {
       </nav>
 
       <section id="main" className="max-w-3xl mx-auto px-6 py-16">
-        <p className="text-xs font-mono uppercase tracking-widest text-primary mb-3">Trust center</p>
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-          Privacy &amp; Trust
-        </h1>
+        <p className="text-xs font-mono uppercase tracking-widest text-primary mb-3">
+          Trust center
+        </p>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Privacy &amp; Trust</h1>
         <p className="text-muted-foreground mb-12">
           This page is maintained by the CarbonWise team to answer common security and privacy
           questions about the app. It describes current, app-visible controls — not an independent
@@ -66,7 +64,11 @@ function PrivacyPage() {
           <p>
             We use email and password authentication. Passwords are never stored in plaintext;
             authentication is handled by our managed backend provider, which stores salted password
-            hashes. You can reset your password at any time from the <Link to="/forgot-password" className="text-primary hover:underline">password reset</Link> page.
+            hashes. You can reset your password at any time from the{" "}
+            <Link to="/forgot-password" className="text-primary hover:underline">
+              password reset
+            </Link>{" "}
+            page.
           </p>
         </Section>
 
@@ -75,7 +77,9 @@ function PrivacyPage() {
             <li>Account: email, optional display name, avatar URL, country, weekly CO₂ goal.</li>
             <li>Onboarding answers (transport, diet, energy, shopping, travel preferences).</li>
             <li>Habit logs you create in the app (habit id, CO₂ saved, XP, date).</li>
-            <li>Scanned bills/receipts you upload (vendor, type, estimated CO₂, AI-generated insight).</li>
+            <li>
+              Scanned bills/receipts you upload (vendor, type, estimated CO₂, AI-generated insight).
+            </li>
           </ul>
           <p>We do not collect payment information, location tracking, or contacts.</p>
         </Section>
@@ -83,33 +87,36 @@ function PrivacyPage() {
         <Section title="How your data is stored &amp; protected">
           <p>
             All user data lives in a managed Postgres database with{" "}
-            <strong>Row-Level Security</strong> enabled on every table. Policies are written so
-            that you can only ever read or modify rows where <code>user_id = auth.uid()</code>.
+            <strong>Row-Level Security</strong> enabled on every table. Policies are written so that
+            you can only ever read or modify rows where <code>user_id = auth.uid()</code>.
             Connections to the database are encrypted in transit (TLS).
           </p>
         </Section>
 
         <Section title="AI processing">
           <p>
-            When you chat with the AI Coach or scan a bill, the relevant text or image is sent to
-            a hosted large-language-model provider through our AI gateway (currently Google
-            Gemini). API keys live server-side only and are never exposed to the browser. Bill
-            images are processed in-memory for analysis; only the structured result (type,
-            vendor, estimated CO₂, short insight) is persisted.
+            When you chat with the AI Coach or scan a bill, the relevant text or image is sent to a
+            hosted large-language-model provider through our AI gateway (currently Google Gemini).
+            API keys live server-side only and are never exposed to the browser. Bill images are
+            processed in-memory for analysis; only the structured result (type, vendor, estimated
+            CO₂, short insight) is persisted.
           </p>
         </Section>
 
         <Section title="Cookies &amp; tracking">
           <p>
-            We use a single first-party storage entry to keep you signed in (your auth session).
-            We do not run third-party analytics, advertising trackers, or cross-site profiling.
+            We use a single first-party storage entry to keep you signed in (your auth session). We
+            do not run third-party analytics, advertising trackers, or cross-site profiling.
           </p>
         </Section>
 
         <Section title="Retention &amp; deletion">
           <p>
-            Your data is retained while your account is active. You can delete individual scans
-            from the <Link to="/scan" className="text-primary hover:underline">Bill Scanner</Link>{" "}
+            Your data is retained while your account is active. You can delete individual scans from
+            the{" "}
+            <Link to="/scan" className="text-primary hover:underline">
+              Bill Scanner
+            </Link>{" "}
             page. To delete your entire account and all associated rows, email{" "}
             <a href="mailto:privacy@carbonwise.app" className="text-primary hover:underline">
               privacy@carbonwise.app
@@ -120,8 +127,8 @@ function PrivacyPage() {
 
         <Section title="Your rights">
           <p>
-            You can request a copy of your data, ask us to correct it, or ask us to delete it at
-            any time. Send requests to{" "}
+            You can request a copy of your data, ask us to correct it, or ask us to delete it at any
+            time. Send requests to{" "}
             <a href="mailto:privacy@carbonwise.app" className="text-primary hover:underline">
               privacy@carbonwise.app
             </a>

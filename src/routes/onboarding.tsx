@@ -33,7 +33,12 @@ const STEPS: Step[] = [
     key: "food",
     title: "What does your plate usually look like?",
     subtitle: "Diet is one of the biggest levers.",
-    options: ["Meat with most meals", "Meat a few times/week", "Mostly plant-based", "Fully plant-based"],
+    options: [
+      "Meat with most meals",
+      "Meat a few times/week",
+      "Mostly plant-based",
+      "Fully plant-based",
+    ],
   },
   {
     key: "energy",
@@ -57,7 +62,12 @@ const STEPS: Step[] = [
     key: "goal",
     title: "What's your goal?",
     subtitle: "We'll personalize your plan to this.",
-    options: ["Cut footprint 20%", "Build greener habits", "Hit net-zero personally", "Just curious"],
+    options: [
+      "Cut footprint 20%",
+      "Build greener habits",
+      "Hit net-zero personally",
+      "Just curious",
+    ],
   },
 ];
 
@@ -147,7 +157,9 @@ function Onboarding() {
                   <span className="font-medium">{opt}</span>
                   <span
                     className={`size-5 rounded-full grid place-items-center border ${
-                      selected ? "bg-primary text-primary-foreground border-primary" : "border-border"
+                      selected
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "border-border"
                     }`}
                   >
                     {selected ? <Check className="size-3" strokeWidth={3} /> : null}
@@ -174,9 +186,7 @@ function Onboarding() {
               <ArrowRight className="size-4" />
             </button>
           </div>
-          {error ? (
-            <p className="text-sm text-destructive mt-4">{error}</p>
-          ) : null}
+          {error ? <p className="text-sm text-destructive mt-4">{error}</p> : null}
         </div>
       </div>
     </div>

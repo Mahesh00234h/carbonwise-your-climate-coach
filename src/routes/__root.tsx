@@ -79,10 +79,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "CarbonWise — Your AI carbon coach" },
-      { name: "description", content: "Measure, simulate, and reduce your carbon footprint with an AI sustainability coach. Personalized habits, what-if simulations, and gamified progress." },
+      {
+        name: "description",
+        content:
+          "Measure, simulate, and reduce your carbon footprint with an AI sustainability coach. Personalized habits, what-if simulations, and gamified progress.",
+      },
       { name: "author", content: "CarbonWise" },
       { property: "og:title", content: "CarbonWise — Your AI carbon coach" },
-      { property: "og:description", content: "Turn small daily choices into massive environmental impact." },
+      {
+        property: "og:description",
+        content: "Turn small daily choices into massive environmental impact.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
