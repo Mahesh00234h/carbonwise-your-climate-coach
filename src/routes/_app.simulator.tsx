@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Sparkles, TrendingDown } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import {
   CartesianGrid,
   Line,
@@ -184,7 +184,7 @@ function Slider({
   onChange: (n: number) => void;
   suffix: string;
 }) {
-  const id = React.useId();
+  const id = useId();
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
