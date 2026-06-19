@@ -9,6 +9,10 @@ import {
   levelProgress,
   impactSummary,
   trendingAverage,
+  percentChange,
+  safeKg,
+  emissionBand,
+  streakDays,
 } from "./carbon";
 
 describe("carbon helpers", () => {
@@ -84,5 +88,49 @@ describe("trendingAverage", () => {
 
   it("returns 0 for empty input", () => {
     expect(trendingAverage([])).toBe(0);
+  });
+});
+
+describe("percentChange", () => {
+  it("computes positive and negative deltas", () => {
+    expect(percentChange(10, 15)).toBe(50);
+    expect(percentChange(10, 5)).toBe(-50);
+    expect(percentChange(10, 10)).toBe(0);
+  });
+  it("is safe for zero or invalid previous", () => {
+    expect(percentChange(0, 5)).toBe(0);
+    expect(percentChange(Number.NaN, 5)).toBe(0);
+  });
+});
+
+describe("safeKg", () => {
+  it("clamps invalid or negative values to 0", () => {
+    expect(safeKg(-3)).toBe(0);
+    expect(safeKg(Number.NaN)).toBe(0);
+    expect(safeKg("abc")).toBe(0);
+  });
+  it("rounds to 2 decimal places", () => {
+    expect(safeKg(1.236)).toBe(1.24);
+    expect(safeKg("2.5")).toBe(2.5);
+  });
+});
+
+describe("emissionBand", () => {
+  it("buckets by severity", () => {
+    expect(emissionBand(2)).toBe("low");
+    expect(emissionBand(8)).toBe("moderate");
+    expect(emissionBand(20)).toBe("high");
+    expect(emissionBand(50)).toBe("severe");
+  });
+  it("handles bad input as low", () => {
+    expect(emissionBand(Number.NaN)).toBe("low");
+  });
+});
+
+describe("streakDays", () => {
+  it("counts trailing days under target", () => {
+    expect(streakDays([{ kg: 20 }, { kg: 4 }, { kg: 3 }, { kg: 2 }], 5)).toBe(3);
+    expect(streakDays([{ kg: 8 }], 5)).toBe(0);
+    expect(streakDays([], 5)).toBe(0);
   });
 });

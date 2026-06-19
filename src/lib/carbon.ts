@@ -87,3 +87,35 @@ export function trendingAverage(entries: Array<{ kg: number }>): number {
   });
   return Math.round((total / weightSum) * 100) / 100;
 }
+
+/** Percent change between two emissions values. Positive = increase. */
+export function percentChange(prev: number, next: number): number {
+  if (!Number.isFinite(prev) || !Number.isFinite(next) || prev <= 0) return 0;
+  return Math.round(((next - prev) / prev) * 1000) / 10;
+}
+
+/** Cap a kg value into a safe non-negative finite number. */
+export function safeKg(kg: unknown): number {
+  const n = typeof kg === "number" ? kg : Number(kg);
+  if (!Number.isFinite(n) || n < 0) return 0;
+  return Math.round(n * 100) / 100;
+}
+
+/** Bucket an emissions value into a qualitative band for UI badges. */
+export function emissionBand(kg: number): "low" | "moderate" | "high" | "severe" {
+  const k = safeKg(kg);
+  if (k < 5) return "low";
+  if (k < 12) return "moderate";
+  if (k < 25) return "high";
+  return "severe";
+}
+
+/** Streak counter: number of consecutive trailing days at or under target. */
+export function streakDays(entries: Array<{ kg: number }>, targetKg: number): number {
+  let streak = 0;
+  for (let i = entries.length - 1; i >= 0; i--) {
+    if (safeKg(entries[i].kg) <= targetKg) streak++;
+    else break;
+  }
+  return streak;
+}
