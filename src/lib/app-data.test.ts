@@ -7,6 +7,9 @@ import {
   LEVELS,
   LEADERBOARD,
   weeklyEmissions,
+  monthlyEmissions,
+  emissionBreakdown,
+  LEARN_TOPICS,
 } from "./app-data";
 
 describe("app-data helpers", () => {
@@ -56,5 +59,25 @@ describe("app-data shape", () => {
   it("weekly emissions cover 7 days with non-negative kg", () => {
     expect(weeklyEmissions.length).toBe(7);
     weeklyEmissions.forEach((d) => expect(d.kg).toBeGreaterThanOrEqual(0));
+  });
+
+  it("monthly emissions cover 30 days", () => {
+    expect(monthlyEmissions.length).toBe(30);
+    monthlyEmissions.forEach((d) => expect(Number.isFinite(d.kg)).toBe(true));
+  });
+
+  it("emission breakdown segments sum to a positive total", () => {
+    const total = emissionBreakdown.reduce((a, b) => a + b.kg, 0);
+    expect(total).toBeGreaterThan(0);
+    emissionBreakdown.forEach((s) => expect(s.color.length).toBeGreaterThan(0));
+  });
+
+  it("learn topics have unique ids and positive reading time", () => {
+    const ids = LEARN_TOPICS.map((t) => t.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    LEARN_TOPICS.forEach((t) => {
+      expect(t.minutes).toBeGreaterThan(0);
+      expect(t.title.length).toBeGreaterThan(3);
+    });
   });
 });
