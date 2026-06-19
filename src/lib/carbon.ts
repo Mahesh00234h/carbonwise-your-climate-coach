@@ -48,3 +48,45 @@ export function levelFromXp(xp: number, thresholds = [0, 1200, 3600, 8400, 14000
   }
   return level;
 }
+
+/**
+ * Progress (0..1) towards the next XP threshold. Returns 1 at the cap.
+ * Useful for rendering a level progress bar.
+ */
+export function levelProgress(
+  xp: number,
+  thresholds = [0, 1200, 3600, 8400, 14000],
+): number {
+  if (!Number.isFinite(xp) || xp <= 0) return 0;
+  const level = levelFromXp(xp, thresholds);
+  if (level >= thresholds.length - 1) return 1;
+  const base = thresholds[level];
+  const next = thresholds[level + 1];
+  return Math.max(0, Math.min(1, (xp - base) / (next - base)));
+}
+
+/** Convert kg CO2 saved to a friendly "X trees / Y km / Z phone charges" summary. */
+export function impactSummary(kg: number): {
+  trees: number;
+  carKm: number;
+  phoneCharges: number;
+} {
+  return {
+    trees: kgToTrees(kg),
+    carKm: kgToCarKm(kg),
+    phoneCharges: kgToPhoneCharges(kg),
+  };
+}
+
+/** Weighted average of a series of daily emissions, weighted by recency. */
+export function trendingAverage(entries: Array<{ kg: number }>): number {
+  if (!entries.length) return 0;
+  let weightSum = 0;
+  let total = 0;
+  entries.forEach((e, i) => {
+    const w = i + 1; // newer entries weigh more
+    weightSum += w;
+    total += w * (Number.isFinite(e.kg) ? e.kg : 0);
+  });
+  return Math.round((total / weightSum) * 100) / 100;
+}

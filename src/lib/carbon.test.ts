@@ -6,6 +6,9 @@ import {
   sumEmissions,
   projectKg,
   levelFromXp,
+  levelProgress,
+  impactSummary,
+  trendingAverage,
 } from "./carbon";
 
 describe("carbon helpers", () => {
@@ -42,5 +45,44 @@ describe("carbon helpers", () => {
     expect(levelFromXp(1200)).toBe(1);
     expect(levelFromXp(9420)).toBe(3);
     expect(levelFromXp(20000)).toBe(4);
+  });
+});
+
+describe("level progress", () => {
+  it("is 0 at level start, 1 at cap", () => {
+    expect(levelProgress(0)).toBe(0);
+    expect(levelProgress(20000)).toBe(1);
+  });
+
+  it("is roughly halfway between thresholds", () => {
+    // thresholds: 1200 -> 3600, midpoint 2400
+    expect(levelProgress(2400)).toBeCloseTo(0.5, 2);
+  });
+});
+
+describe("impactSummary", () => {
+  it("returns all three equivalents", () => {
+    const s = impactSummary(21);
+    expect(s.trees).toBe(1);
+    expect(s.carKm).toBeGreaterThan(100);
+    expect(s.phoneCharges).toBeGreaterThan(2000);
+  });
+
+  it("is zeroed for non-positive input", () => {
+    expect(impactSummary(0)).toEqual({ trees: 0, carKm: 0, phoneCharges: 0 });
+  });
+});
+
+describe("trendingAverage", () => {
+  it("weights recent values more heavily", () => {
+    const flat = trendingAverage([{ kg: 10 }, { kg: 10 }, { kg: 10 }]);
+    expect(flat).toBe(10);
+    const rising = trendingAverage([{ kg: 0 }, { kg: 0 }, { kg: 12 }]);
+    // last value has weight 3 of 6 -> average = 6
+    expect(rising).toBe(6);
+  });
+
+  it("returns 0 for empty input", () => {
+    expect(trendingAverage([])).toBe(0);
   });
 });

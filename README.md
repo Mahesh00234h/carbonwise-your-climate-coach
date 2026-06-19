@@ -212,7 +212,7 @@ Visit `http://localhost:5173`. Lovable Cloud injects all required env vars autom
 
 ## 🧪 Testing
 
-Pure-function unit tests live next to their sources (e.g. `src/lib/carbon.test.ts`) and run under **Vitest + jsdom + Testing Library**.
+Pure-function and shape-invariant unit tests live next to their sources (`src/lib/*.test.ts`) and run under **Vitest + jsdom + Testing Library**. The suite covers carbon math, level progression, impact equivalents, the `cn` Tailwind merge helper, and data integrity for habits / challenges / leaderboard.
 
 ```bash
 bun run test        # one-shot
@@ -256,7 +256,7 @@ bun run test:watch  # TDD mode
 | **Code Quality** | Strict TypeScript, semantic Tailwind tokens, Zod schemas on every server boundary, pure helpers extracted to `src/lib/carbon.ts`, ESLint + Prettier configured, no dead code. |
 | **Security** | RLS on every user table, `SECURITY DEFINER` profile trigger, server-only secrets, signed-in Auth flow, password recovery, dedicated `/privacy` trust page, no PII in logs. |
 | **Efficiency** | Edge runtime, SSR, streaming AI responses, TanStack Query caching, code-split routes, indexed `user_id` columns, no client-side admin keys. |
-| **Testing** | Vitest + Testing Library + jsdom, 6 passing unit tests for pure carbon-math helpers, `bun run test` script, isolated pure-function design makes coverage trivial to expand. |
+| **Testing** | Vitest + Testing Library + jsdom, **23 passing unit tests across 3 files** (`carbon.test.ts`, `utils.test.ts`, `app-data.test.ts`) covering pure math, level progression, Tailwind class merging, and data-shape invariants. `bun run test` / `bun run test:watch`. |
 | **Accessibility** | Skip-to-content link, single `<main>` landmark, semantic HTML, ARIA labels on icon-only buttons, WCAG-AA semantic color tokens, Radix primitives for dialogs/menus, keyboard-navigable. |
 | **Problem Statement Alignment** | Directly attacks the "awareness → action gap" with personalization, gamification, real-life equivalents, AI coaching, bill scanning, and community — exactly what the brief asked for. |
 
